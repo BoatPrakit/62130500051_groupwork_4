@@ -8,7 +8,9 @@ const app = {
             ],
             isShowSearchBox: false,
             keywordForSearch: "",
-            isFound: true
+            isFound: true,
+            isShowImg : false,
+            currentImg: './images/robot.jpg',
         }
     },
     methods: {
@@ -36,6 +38,13 @@ const app = {
                 element.isHidden = false
             }
             this.isFound = true
+        },
+        handleClickImg(index){
+            this.currentImg = this.imgs[index].src;
+            this.isShowImg = true;
+        },
+        handleCloseImg(){
+            this.isShowImg = false;
         }
     },
     computed: {
