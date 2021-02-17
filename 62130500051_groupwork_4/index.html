@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vue Lab</title>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <script src="https://unpkg.com/vue@next"></script>
+
+</head>
+<body>
+    <div id="app" class="container mx-auto h-screen flex justify-center"> 
+        <div class="mt-20">
+            <h1 class="text-2xl font-bold text-center">Photo Gallery({{ getImgLength }})</h1>
+            <div class="w-full flex mt-5 h-8 justify-between">
+                <i class="fas fa-search cursor-pointer" @click="showSearchBox" v-show="!isShowSearchBox"></i>
+                <input v-model="keywordForSearch" @keyup.enter="findResult" type="text" v-if="isShowSearchBox" class="w-auto border-2 border-blue-400 w-full">
+                <button @click="handleCancel" v-if="isShowSearchBox" class="bg-blue-400 text-white p-1 ml-3 rounded">cancel</button>
+            </div>
+            <div v-for="(img,index) in imgs" class="flex my-5 items-center" :class="[img.isHidden ? 'hidden' : '']">
+                <img class="w-52 mr-10 cursor-pointer" 
+                    :src="img.src" 
+                    :alt="img.id" 
+                    :key="img.id"
+                    v-on:click="showFavorite(index)">
+                <p>{{ img.id }}</p>
+                <i v-if="img.isActive" class="fas fa-heart ml-5" style="color: red;"></i>
+            </div>
+            <p v-if="!isFound"> No photo. </p>
+        </div>
+    </div>
+
+  <!-- my main.js -->
+  <script src="./main.js"></script>
+</body>
+
+</html>
