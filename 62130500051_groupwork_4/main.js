@@ -10,7 +10,7 @@ const app = {
             keywordForSearch: "",
             isFound: true,
             isShowImg : false,
-            currentImg: './images/robot.jpg',
+            currentImg: '',
         }
     },
     methods: {
@@ -22,15 +22,16 @@ const app = {
         },
         findResult(){
             if(this.keywordForSearch){
-                for (let i = 0; i < this.imgs.length; i++) {
-                    const element = this.imgs[i];
-                    if(element.id !== this.keywordForSearch){
-                        element.isHidden = !element.isHidden;
+                for(imageObj of this.imgs){
+                    if(imageObj.id === this.keywordForSearch){
+                        imageObj.isHidden = false;
+                    }else{
+                        imageObj.isHidden = true;
                     }
                 }
                 if(this.imgs.every(element => element.isHidden)) this.isFound = false;
-                this.keywordForSearch = '';
             }
+            this.keywordForSearch = '';
         },
         handleCancel(){
             this.isShowSearchBox = !this.isShowSearchBox;
@@ -39,8 +40,8 @@ const app = {
             }
             this.isFound = true
         },
-        handleClickImg(index){
-            this.currentImg = this.imgs[index].src;
+        handleClickImg(src){
+            this.currentImg = src;
             this.isShowImg = true;
         },
         handleCloseImg(){
